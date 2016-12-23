@@ -9,9 +9,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/dev/ref/settings/
 """
 from __future__ import absolute_import, unicode_literals
-
+import os
 import environ
-
+PACKAGE_ROOT = os.path.abspath(os.path.dirname(__file__))
 ROOT_DIR = environ.Path(__file__) - 3  # (prototype1/config/settings/common.py - 3 = prototype1/)
 APPS_DIR = ROOT_DIR.path('prototype1')
 
@@ -40,6 +40,9 @@ THIRD_PARTY_APPS = (
     'allauth',  # registration
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
+    'userena',
+    'guardian',
+    'easy_thumbnails'
 )
 
 # Apps specific for this project go here.
@@ -47,6 +50,8 @@ LOCAL_APPS = (
     # custom users app
     'prototype1.users.apps.UsersConfig',
     # Your stuff: custom apps go here
+    'prototype1.sowork',
+    'prototype1.accounts',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -85,12 +90,17 @@ FIXTURE_DIRS = (
 # EMAIL CONFIGURATION
 # ------------------------------------------------------------------------------
 EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')
-
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'wangxipeng0809@gmail.com'
+EMAIL_HOST_PASSWORD = 'yourgmailpassword'
 # MANAGER CONFIGURATION
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#admins
 ADMINS = (
     ("""genji""", 'genji@ow.com'),
+    ('basin0809', 'wangxipeng0809@gmail.com'),
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#managers
@@ -102,9 +112,9 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'prototype1',
-        'USER': 'prototype1',
-        'PASSWORD': '1234',
+        'NAME': 'testdb',
+        'USER': 'postgres',
+        'PASSWORD': 'basin576095',
         'HOST': 'localhost',
         'PORT': '5432',
     },
@@ -208,6 +218,10 @@ ROOT_URLCONF = 'config.urls'
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#wsgi-application
 WSGI_APPLICATION = 'config.wsgi.application'
 
+# Django-guardian requires you to set the ANONYMOUS_USER_ID setting.
+# you are also required to set the AUTH_PROFILE_MODULE to your custom defined profile.
+ANONYMOUS_USER_ID = -1
+AUTH_PROFILE_MODULE = 'accounts.MyProfile'
 
 # PASSWORD VALIDATION
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-password-validators
@@ -231,6 +245,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # AUTHENTICATION CONFIGURATION
 # ------------------------------------------------------------------------------
 AUTHENTICATION_BACKENDS = (
+    'userena.backends.UserenaAuthenticationBackend',
+    'guardian.backends.ObjectPermissionBackend',
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 )
@@ -248,7 +264,10 @@ SOCIALACCOUNT_ADAPTER = 'prototype1.users.adapters.SocialAccountAdapter'
 # Select the correct user model
 AUTH_USER_MODEL = 'users.User'
 LOGIN_REDIRECT_URL = 'users:redirect'
-LOGIN_URL = 'account_login'
+# LOGIN_URL = 'account_login'
+USERENA_SIGNIN_REDIRECT_URL = '/accounts/%(username)s/'
+LOGIN_URL = '/accounts/signin/'
+LOGOUT_URL = '/accounts/signout/'
 
 # SLUGLIFIER
 AUTOSLUG_SLUGIFY_FUNCTION = 'slugify.slugify'

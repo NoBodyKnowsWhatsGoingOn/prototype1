@@ -1,0 +1,57 @@
+{% extends 'userena/base_userena.html' %}
+{% load i18n %}
+{% load account socialaccount %}
+{% load crispy_forms_tags %}
+{% block title %}{% trans "Signin" %}{% endblock %}
+
+{% block content %}
+
+{% get_providers as socialaccount_providers %}
+
+{% if socialaccount_providers %}
+    <p>{% blocktrans with site.name as site_name %}Please sign in with one
+    of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
+    for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
+
+    <div class="socialaccount_ballot">
+
+      <ul class="socialaccount_providers">
+        {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+      </ul>
+
+      <div class="login-or">{% trans 'or' %}</div>
+
+    </div>
+
+    {% include "socialaccount/snippets/login_extra.html" %}
+
+{% else %}
+    <p>没有Sowork账号？ 快来<a href="{% url 'userena_signup' %}">注册</a>！</p>
+{% endif %}
+
+<form action="" method="post">
+    {% csrf_token %}
+      <fieldset>
+        <legend>{% trans "用户登录" %}</legend>
+      {{ form|crispy }}
+{#    {{ form.non_field_errors }}#}
+{#    {% for field in form %}#}
+{#    {{ field.errors }}#}
+{#     Displaying checkboxes differently #}
+{#    {% if field.name == 'remember_me' %}#}
+{#    <p class="checkbox">#}
+{#    <label for="id_{{ field.name }}">{{ field }} {{ field.label }}</label>#}
+{#    </p>#}
+{#    {% else %}#}
+{#    <p>#}
+{#    {{ field.label_tag }}#}
+{#    {{ field }}#}
+{#    </p>#}
+{#    {% endif %}#}
+{#    {% endfor %}#}
+  </fieldset>
+  <input type="submit" value="{% trans "Signin" %}" />
+  <p class="forgot-password"><a href="{% url 'userena_password_reset' %}" title="{% trans 'Forgot your password?' %}">{% trans "Forgot your password?" %}</a></p>
+  {% if next %}<input type="hidden" name="next" value="{{ next }}" />{% endif %}
+</form>
+{% endblock %}

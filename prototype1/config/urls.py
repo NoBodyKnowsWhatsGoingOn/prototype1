@@ -17,10 +17,15 @@ urlpatterns = [
 
     # User management
     url(r'^users/', include('prototype1.users.urls', namespace='users')),
-    url(r'^accounts/', include('allauth.urls')),
+    # url(r'^accounts/', include('allauth.urls')),
+    url(r'^accounts/', include('prototype1.accounts.urls')),
 
     # Your stuff: custom urls includes go here
+    url(r'^sowork/', include('prototype1.sowork.urls')),
 
+    url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+
+    url(r'^admin/', include(admin.site.urls)),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
