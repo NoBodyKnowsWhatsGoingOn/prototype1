@@ -18,3 +18,6 @@ pytest-sugar==0.7.1
 
 # custom
 easy-thumbnails==2.3
+
+# userena
+django-userena
