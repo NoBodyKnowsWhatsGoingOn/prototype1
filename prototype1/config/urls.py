@@ -11,7 +11,6 @@ from django.views import defaults as default_views
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name='home'),
     url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name='about'),
-
     # Django Admin, use {% url 'admin:index' %}
     url(settings.ADMIN_URL, admin.site.urls),
 
@@ -21,7 +20,8 @@ urlpatterns = [
     url(r'^accounts/', include('prototype1.accounts.urls')),
 
     # Your stuff: custom urls includes go here
-    url(r'^sowork/', include('prototype1.sowork.urls')),
+    url(r'^sowork/', include('prototype1.sowork.urls', namespace='sowork')),
+    url(r'^sowork_files/', include('prototype1.sowork_files.urls', namespace='sowork_files')),
 
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 

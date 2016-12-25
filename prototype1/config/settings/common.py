@@ -52,6 +52,7 @@ LOCAL_APPS = (
     # Your stuff: custom apps go here
     'prototype1.sowork',
     'prototype1.accounts',
+    'prototype1.sowork_files',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
