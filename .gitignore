@@ -1,3 +1,4 @@
+
 ### OSX ###
 .DS_Store
 .AppleDouble
@@ -61,6 +62,6 @@ node_modules/
 # User-uploaded media
 prototype1/media/
 
-
+prototype1/prototype1/media
 
 staticfiles/

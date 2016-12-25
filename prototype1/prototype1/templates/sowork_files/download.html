@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load static i18n %}
+{% block title %}sowork files{% endblock %}
+
+{% block content %}
+	<p>You can test download file here</p>
+	{% for file in files %}
+		<li><a href="{% url "sowork_files:download_file" file.id %}">Download file with id: {{file.id}}</a></li>
+	{% endfor %}
+
+{% endblock content %}
