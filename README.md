@@ -14,3 +14,4 @@ This is because the dependency package version for guardian in userena is wrong.
 Run python manage.py check_permission.
 see FAQ 5.5.1 https://media.readthedocs.org/pdf/django-userena/latest/django-userena.pdf
 
+3. Remember to run manage.py migrate whenever new models are introduced.
