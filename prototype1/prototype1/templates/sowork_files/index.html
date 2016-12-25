@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load static i18n %}
+{% block title %}sowork files{% endblock %}
+
+{% block content %}
+	<p>You can test upload file and download file here</p>
+	<ul>
+		<li><a href="{% url 'sowork_files:upload_file' %}">Upload File</a></li>
+		<li><a href="{% url 'sowork_files:download_file' %}">Download File</a></li>
+	</ul>
+{% endblock content %}

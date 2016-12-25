@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load static i18n %}
+{% block title %}sowork files{% endblock %}
+
+{% block content %}
+	<p>You can test upload file here</p>
+	<form action="{% url "sowork_files:upload_file" %}" method="post" enctype="multipart/form-data">
+	{% csrf_token %}
+	<input type="text" name="file_name" placeholder="input your file name"/>
+	<br>
+	<input type="file" name="file"/>
+	<br>
+	<input type="submit" value="Upload" />
+	</form>
+{% endblock content %}
