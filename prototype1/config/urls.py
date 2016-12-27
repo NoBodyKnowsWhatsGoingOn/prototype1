@@ -20,6 +20,7 @@ urlpatterns = [
     url(r'^accounts/', include('prototype1.accounts.urls')),
 
     # Your stuff: custom urls includes go here
+    url(r'^sowork_jobs/', include('prototype1.sowork_jobs.urls', namespace='sowork_jobs')),
     url(r'^sowork/', include('prototype1.sowork.urls', namespace='sowork')),
     url(r'^sowork_files/', include('prototype1.sowork_files.urls', namespace='sowork_files')),
 

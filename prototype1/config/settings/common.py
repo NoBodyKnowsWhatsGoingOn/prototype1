@@ -8,13 +8,14 @@ https://docs.djangoproject.com/en/dev/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/dev/ref/settings/
 """
+
 from __future__ import absolute_import, unicode_literals
 import os
 import environ
+
 PACKAGE_ROOT = os.path.abspath(os.path.dirname(__file__))
 ROOT_DIR = environ.Path(__file__) - 3  # (prototype1/config/settings/common.py - 3 = prototype1/)
 APPS_DIR = ROOT_DIR.path('prototype1')
-
 env = environ.Env()
 env.read_env()
 
@@ -42,7 +43,8 @@ THIRD_PARTY_APPS = (
     'allauth.socialaccount',  # registration
     'userena',
     'guardian',
-    'easy_thumbnails'
+    'easy_thumbnails',
+    'rest_framework',
 )
 
 # Apps specific for this project go here.
@@ -53,6 +55,7 @@ LOCAL_APPS = (
     'prototype1.sowork',
     'prototype1.accounts',
     'prototype1.sowork_files',
+    'prototype1.sowork_jobs',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -113,9 +116,9 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'testdb',
-        'USER': 'postgres',
-        'PASSWORD': 'basin576095',
+        'NAME': "test",
+        'USER': "test",
+        'PASSWORD': "test",
         'HOST': 'localhost',
         'PORT': '5432',
     },
