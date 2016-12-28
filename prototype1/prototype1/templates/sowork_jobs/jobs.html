@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}sowork jobs{% endblock %}
+
+{% block content %}
+	<h3>
+  All jobs
+  <small class="text-muted">Find your next dream</small>
+  </h3>
+  <hr />
+	{% for job in jobs %}
+    {% if job.active %}
+      <div class="card card-outline-success text-xs col-md-8">
+    {% else %}
+      <div class="card card-outline-danger text-xs col-md-8">
+    {% endif %}
+        <div class="card-block">
+          <blockquote class="card-blockquote">
+            <h3>{{ job.title }}</h3>
+            <p>{{ job.description }}</p>
+          </blockquote>
+        </div>
+    </div>
+	{% endfor %}
+
+{% endblock content %}

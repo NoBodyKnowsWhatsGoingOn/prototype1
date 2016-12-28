@@ -4,6 +4,7 @@ from django.http import Http404
 from prototype1.sowork_jobs.models import JobInfo
 from prototype1.sowork_jobs.serializers import JobInfoSerializer
 from rest_framework import status
+from django.shortcuts import render
 
 
 # Create your views here.
@@ -53,3 +54,7 @@ class JobDetail(APIView):
         snippet.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
+def jobs_display(request):
+    jobs = JobInfo.objects.all()
+    return render(request, 'sowork_jobs/jobs.html', {'jobs': jobs})

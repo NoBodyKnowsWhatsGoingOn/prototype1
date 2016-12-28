@@ -18,6 +18,6 @@ class JobInfo(models.Model):
         # On save, update timestamps
         if not self.id:
             self.createTime = datetime.utcnow() #use utc time
-        self.title = self.Alias.replace(" ", "")
+        self.title = self.title.replace(" ", "")
         self.lastUpdateTime = datetime.utcnow()
         return super(JobInfo, self).save(*args, **kwargs)
