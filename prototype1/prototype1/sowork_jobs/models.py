@@ -14,6 +14,8 @@ class JobInfo(models.Model):
     lastUpdateTime = models.DateTimeField(editable=False)
     active = models.BooleanField(default=False)
 
+    def __str__(self): return self.title
+
     def save(self, *args, **kwargs):
         # On save, update timestamps
         if not self.id:

@@ -14,10 +14,13 @@
     {% else %}
       <div class="card card-outline-danger text-xs col-md-8">
     {% endif %}
-        <div class="card-block">
+        <div class="card-block" >
           <blockquote class="card-blockquote">
-            <h3>{{ job.title }}</h3>
-            <p>{{ job.description }}</p>
+               <a class="nav-link" href="{% url 'sowork_jobs:detail' job.id %}">
+                   <h3>{{ job.title }}</h3>
+               </a>
+
+                <p>{{ job.description }}</p>
           </blockquote>
         </div>
     </div>

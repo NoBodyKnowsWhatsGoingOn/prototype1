@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from prototype1.sowork_jobs.models import JobInfo
+from models import JobInfo
 
 
 class JobInfoSerializer(serializers.HyperlinkedModelSerializer):

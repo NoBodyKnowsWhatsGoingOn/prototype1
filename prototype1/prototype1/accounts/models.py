@@ -2,10 +2,10 @@ from __future__ import unicode_literals
 
 from django.db import models
 
-from prototype1.users.models import User
+
 from django.utils.translation import ugettext as _
 from userena.models import UserenaBaseProfile
-
+from prototype1.users.models import User
 
 class MyProfile(UserenaBaseProfile):
     user = models.OneToOneField(User,

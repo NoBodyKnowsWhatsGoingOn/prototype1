@@ -1,8 +1,8 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.http import Http404
-from prototype1.sowork_jobs.models import JobInfo
-from prototype1.sowork_jobs.serializers import JobInfoSerializer
+from models import JobInfo
+from serializers import JobInfoSerializer
 from rest_framework import status
 from django.shortcuts import render
 
@@ -57,4 +57,5 @@ class JobDetail(APIView):
 
 def jobs_display(request):
     jobs = JobInfo.objects.all()
+
     return render(request, 'sowork_jobs/jobs.html', {'jobs': jobs})
