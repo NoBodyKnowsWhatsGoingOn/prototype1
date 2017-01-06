@@ -5,7 +5,8 @@ from models import JobInfo
 from serializers import JobInfoSerializer
 from rest_framework import status
 from django.shortcuts import render
-
+from prototype1.sowork_jobs.forms import PostJobForm
+from django.http import HttpResponseRedirect
 
 # Create your views here.
 
@@ -59,3 +60,16 @@ def jobs_display(request):
     jobs = JobInfo.objects.all()
 
     return render(request, 'sowork_jobs/jobs.html', {'jobs': jobs})
+
+def post_jobs(request):
+    if request.method == 'POST':
+        form = PostJobForm(request.POST)
+        if form.is_valid():
+            serializer = JobInfoSerializer(data=form.cleaned_data)
+            if serializer.is_valid():
+                serializer.save()
+            return HttpResponseRedirect('/sowork_jobs/')
+    else:
+        form = PostJobForm()
+
+    return render(request, 'sowork_jobs/post_jobs.html', {'form': form})

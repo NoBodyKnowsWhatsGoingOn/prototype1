@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}sowork jobs{% endblock %}
+
+{% block content %}
+	<h3>
+  POST YOUR JOB
+  <small class="text-muted">Find your next employee</small>
+  </h3>
+  <hr />
+	<form action="/sowork_jobs/postjobs/" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit" />
+  </form>
+
+{% endblock content %}
