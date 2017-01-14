@@ -56,6 +56,7 @@ LOCAL_APPS = (
     'prototype1.accounts',
     'prototype1.sowork_files',
     'prototype1.sowork_jobs',
+    'prototype1.comments',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

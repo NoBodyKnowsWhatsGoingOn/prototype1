@@ -4,6 +4,7 @@ from django.db import models
 
 from datetime import datetime
 
+from django.core.urlresolvers import reverse
 
 # Create your models here.
 
@@ -13,6 +14,9 @@ class JobInfo(models.Model):
     createTime = models.DateTimeField(editable=False)
     lastUpdateTime = models.DateTimeField(editable=False)
     active = models.BooleanField(default=False)
+
+    def get_absolute_url(self):
+        return reverse('sowork_jobs:detail', kwargs={'job_id': self.pk})
 
     def __str__(self): return self.title
 

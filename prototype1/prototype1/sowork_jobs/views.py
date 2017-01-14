@@ -2,9 +2,11 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.http import Http404
 from models import JobInfo
+from prototype1.comments.forms import CommentForm
+from prototype1.comments.models import Comment
 from serializers import JobInfoSerializer
 from rest_framework import status
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from prototype1.sowork_jobs.forms import PostJobForm
 from django.http import HttpResponseRedirect
 
@@ -56,10 +58,30 @@ class JobDetail(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
+
 def jobs_display(request):
     jobs = JobInfo.objects.all()
 
     return render(request, 'sowork_jobs/jobs.html', {'jobs': jobs})
+
+def job_detail(request, job_id):
+    job = get_object_or_404(JobInfo, pk=job_id)
+    if request.method == 'GET':
+        form = CommentForm()
+    else:
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            cleaned_data = form.cleaned_data
+            cleaned_data['user'] = request.user
+            cleaned_data['job_info'] = job
+            Comment.objects.create(**cleaned_data)
+
+    ctx = {
+        'job': job,
+        'comments': job.comment_set.all().order_by('created_time'),
+        'form': form
+    }
+    return render(request, 'sowork_jobs/job_detail.html', ctx)
 
 def post_jobs(request):
     if request.method == 'POST':
