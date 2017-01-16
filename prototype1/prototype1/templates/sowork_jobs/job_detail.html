@@ -24,7 +24,11 @@
             <h3>comments of {{ job.title }}</h3>
             {% for comment in comments %}
                 <div class="comment-field" style="padding-top: 10px;">
-                   {{ comment.body }} by {{ comment.user.username }} at {{ comment.created_time }}
+                <blockquote class="card-blockquote">
+                    {{ comment.body }} by
+                    <a class="nav-link" href="{% url 'userena_profile_detail' comment.user.username %}"> {{ comment.user.username }} </a> at {{ comment.created_time }}
+                </blockquote>
+
                 </div>
             {% endfor %}
         </div>

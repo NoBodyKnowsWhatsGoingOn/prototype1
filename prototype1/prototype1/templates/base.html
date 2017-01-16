@@ -1,4 +1,4 @@
-{% load staticfiles i18n %}<!DOCTYPE html>
+{% load staticfiles i18n umessages_tags%}<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -68,6 +68,10 @@
               {% if request.user.is_authenticated %}
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'userena_profile_detail' request.user.username  %}">{{ request.user.username }}'s profile</a>
+                </li>
+                <li class="nav-item">
+                  {% get_unread_message_count_for user as unread_message_count %}
+                  <a class="nav-link" href="{% url 'userena_umessages_list' %}">messages({{ unread_message_count }})</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'userena_signout' %}">{% trans "Sign Out" %}</a>

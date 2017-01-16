@@ -16,9 +16,9 @@ urlpatterns = [
     url(r'^signup/$',
         userena_views.signup,
      {'signup_form': SignupFormExtra}),
-
-    url(r'^', include('userena.urls')),
     url(r'^messages/', include('userena.contrib.umessages.urls')),
+    url(r'^', include('userena.urls')),
+
     # url(r'^$', 'profiles.views.promo', name='promo'),
     # url(r'^i18n/', include('django.conf.urls.i18n')),
 ]
