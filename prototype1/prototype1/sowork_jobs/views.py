@@ -6,9 +6,10 @@ from prototype1.comments.forms import CommentForm
 from prototype1.comments.models import Comment
 from serializers import JobInfoSerializer
 from rest_framework import status
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from prototype1.sowork_jobs.forms import PostJobForm
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -57,11 +58,8 @@ class JobDetail(APIView):
         snippet.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-
-
 def jobs_display(request):
     jobs = JobInfo.objects.all()
-
     return render(request, 'sowork_jobs/jobs.html', {'jobs': jobs})
 
 def job_detail(request, job_id):
@@ -83,6 +81,8 @@ def job_detail(request, job_id):
     }
     return render(request, 'sowork_jobs/job_detail.html', ctx)
 
+
+@login_required
 def post_jobs(request):
     if request.method == 'POST':
         form = PostJobForm(request.POST)
