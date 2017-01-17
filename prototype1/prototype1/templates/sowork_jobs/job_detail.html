@@ -1,51 +1,61 @@
 {% extends "base.html" %}
+{% load static %}
 {% load i18n %}
 {% load crispy_forms_tags %}
+
 {% block title %}sowork job detail{% endblock %}
 
 {% block content %}
-  <h3>Job details</h3>
-  <hr />
+    <h3>Job Detail</h3>
     {% if job.active %}
-      <p>This job is currently active.</p>
+        <span class="tag tag-success">Active</span>
     {% else %}
-       <p>This job is inactive for now.</p>
+        <span class="tag tag-danger">Inactive</span>
     {% endif %}
-        <div class="card-block" >
-          <blockquote class="card-blockquote">
-               <h3>{{ job.title }}</h3>
-                <p>Post at {{ job.createTime }}</p>
-                <p>Last updated at {{ job.lastUpdateTime }}</p>
-                <p>{{ job.description }}</p>
-          </blockquote>
+    <hr />
+    <div class="card" >
+        <div class="card-block">
+            <h4 class="card-title">{{ job.title }}</h4>
+            <h6 class="card-subtitle mb-2 text-muted">Post at {{ job.createTime }}</h6>
+            <p class="card-text">{{ job.description }}</p>
         </div>
-    <div>
-        <div style="padding-top: 20px;">
-            <h3>comments of {{ job.title }}</h3>
-            {% for comment in comments %}
-                <div class="comment-field" style="padding-top: 10px;">
-                <blockquote class="card-blockquote">
-                    {{ comment.body }} by
-                    <a class="nav-link" href="{% url 'userena_profile_detail' comment.user.username %}"> {{ comment.user.username }} </a> at {{ comment.created_time }}
-                </blockquote>
-
-                </div>
-            {% endfor %}
-        </div>
-        <div style="padding-top: 20px;">
-            <h3>Submit comment</h3>
-            <form action="{% url 'sowork_jobs:detail' job.id %}" method="post">
-                {% csrf_token %}
-                {% for field in form %}
-                    <div class="input-field" style="padding-top: 10px">
-                        {{ field.label }}: {{ field }}
-                    </div>
-                    <div class="error" style="color: red;">
-                        {{ field.errors }}
-                    </div>
-                {% endfor %}
-                <button class="btn btn-primary" type="submit" style="margin-top: 10px">Submit</button>
-            </form>
+        <div class="card-footer">
+            Last updated at {{ job.lastUpdateTime }}
         </div>
     </div>
+    <hr />
+    <div>
+        <h4>Comments of {{ job.title }}</h4>
+        <ul class="list-group">
+            {% for comment in comments %}
+            <li class="list-group-item">
+                <p>{{ comment.body }} </p>
+                <p clasee="text-muted">by
+                <a class="nav-link" href="{% url 'userena_profile_detail' comment.user.username %}">
+                {{ comment.user.username }} </a> at {{ comment.created_time }} </p>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <hr />
+    <h3>Submit Comment</h3>
+    <form action="{% url 'sowork_jobs:detail' job.id %}" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="form-group row">
+            <label for="{{ field.id_for_label }}" class="col-2 col-form-label">{{ field.label }}</label>
+            <div class="col-10">
+                {{ field }}
+            </div>
+            <div class="text-danger">
+                {{ field.errors }}
+            </div>
+        </div>
+        {% endfor %}
+        <div class="form-group row">
+            <div class="offset-2 col-10">
+                <input type="submit" value="Submit" class="btn btn-outline-primary"/>
+            </div>
+        </div>
+    </form>
 {% endblock content %}
